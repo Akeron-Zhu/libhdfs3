@@ -243,6 +243,16 @@ public:
     tPort port;
 };
 
+void printHdfsBuilder(hdfsBuilder *builder) {
+    printf("##################################");
+    printf("token: %s\n", builder->token);
+    printf("conf: %s\n", builder->conf->printConfig);
+    printf("nn: %s\n", builder->nn);
+    printf("userName: %s\n", builder->userName);
+    printf("principal: %s\n", builder->principal);
+    printf("port: %d\n", builder->port);
+}
+
 static void handleException(Hdfs::exception_ptr error) {
     try {
         Hdfs::rethrow_exception(error);
@@ -352,7 +362,7 @@ hdfsFS hdfsConnectAsUser(const char * host, tPort port, const char * user) {
 
     if (!bld)
         return NULL;
-
+    printf("In hdfsConnectAsUser\n");
     hdfsBuilderSetNameNode(bld, host);
     hdfsBuilderSetNameNodePort(bld, port);
     hdfsBuilderSetUserName(bld, user);
@@ -370,6 +380,7 @@ hdfsFS hdfsConnect(const char * host, tPort port) {
     if (!bld)
         return NULL;
 
+    printf("In hdfsConnect\n");
     hdfsBuilderSetNameNode(bld, host);
     hdfsBuilderSetNameNodePort(bld, port);
     retVal = hdfsBuilderConnect(bld);
@@ -388,6 +399,7 @@ hdfsFS hdfsConnectAsUserNewInstance(const char * host, tPort port,
     if (!bld)
         return NULL;
 
+    printf("In hdfsConnectAsUserNewInstance\n");
     hdfsBuilderSetNameNode(bld, host);
     hdfsBuilderSetNameNodePort(bld, port);
     hdfsBuilderSetForceNewInstance(bld);
@@ -406,6 +418,7 @@ hdfsFS hdfsConnectNewInstance(const char * host, tPort port) {
     if (!bld)
         return NULL;
 
+    printf("In hdfsConnectNewInstance\n");
     hdfsBuilderSetNameNode(bld, host);
     hdfsBuilderSetNameNodePort(bld, port);
     hdfsBuilderSetForceNewInstance(bld);
@@ -534,6 +547,7 @@ void hdfsBuilderSetForceNewInstance(struct hdfsBuilder * bld) {
 }
 
 void hdfsBuilderSetNameNode(struct hdfsBuilder * bld, const char * nn) {
+    printHdfsBuilder(bld);
     printf("\nSetting NameNode to: %s\n", nn);
     assert(bld != NULL);
     printf("Check bld OK.\n");

@@ -182,6 +182,15 @@ public:
      */
     size_t hash_value() const;
 
+    void printConfig(){
+        std::cout<<"path: "<<this->path<<std::endl;
+        std::map<std::string, std::string>::iterator iter;
+        for (iter = (this->kv).begin(); iter != (this->kv).end(); ++iter) 
+        {
+            std::cout << iter->first << " => " << iter->second << '\n';
+        }
+    }
+
 private:
     std::string path;
     std::map<std::string, std::string> kv;
