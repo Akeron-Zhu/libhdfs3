@@ -244,7 +244,7 @@ public:
 };
 
 void printHdfsBuilder(hdfsBuilder *builder) {
-    printf("##################################");
+    printf("##############printHdfsBuilder####################");
     printf("token: %s\n", builder->token);
     //builder->conf->printConfig;
     printf("nn: %s\n", builder->nn);
