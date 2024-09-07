@@ -175,7 +175,7 @@ static void readConfigItems(xmlDocPtr doc, Map & kv, const char * path) {
         }
 
         if (strcmp((const char *) curNode->name, "property")) {
-            printf( "Config cannot parse configure file: \"%s\"\n", path.c_str());
+            printf( "Config cannot parse configure file: \"%s\"\n", path);
             THROW(HdfsBadConfigFoumat,
                   "Config cannot parse configure file: \"%s\"", path);
         }
