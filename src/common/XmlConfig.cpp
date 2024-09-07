@@ -143,7 +143,7 @@ static void readConfigItem(xmlNodePtr root, Map & kv, const char * path) {
     }
 
     if (hasname && hasvalue) {
-        printf("config key-val pair: %s: %s\n",key,value);
+        printf("config key-val pair: %s: %s\n",key.c_str(),value.c_str());
         kv[key] = value;
         return;
     } else if (hasname) {
@@ -161,7 +161,7 @@ static void readConfigItems(xmlDocPtr doc, Map & kv, const char * path) {
 
     if (NULL == root || strcmp((const char *) root->name, "configuration")) {
         printf("Config cannot parse configure file: \"%s\"\n",
-              path);
+              path.c_str());
         THROW(HdfsBadConfigFoumat, "Config cannot parse configure file: \"%s\"",
               path);
     }
@@ -175,7 +175,7 @@ static void readConfigItems(xmlDocPtr doc, Map & kv, const char * path) {
         }
 
         if (strcmp((const char *) curNode->name, "property")) {
-            printf( "Config cannot parse configure file: \"%s\"\n", path);
+            printf( "Config cannot parse configure file: \"%s\"\n", path.c_str());
             THROW(HdfsBadConfigFoumat,
                   "Config cannot parse configure file: \"%s\"", path);
         }

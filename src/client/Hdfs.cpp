@@ -251,11 +251,11 @@ public:
 
 void printHdfsBuilder(hdfsBuilder *builder) {
     printf("##############printHdfsBuilder####################");
-    printf("token: %s\n", builder->token);
+    printf("token: %s\n", builder->token.c_str());
     //builder->conf->printConfig;
-    printf("nn: %s\n", builder->nn);
-    printf("userName: %s\n", builder->userName);
-    printf("principal: %s\n", builder->principal);
+    printf("nn: %s\n", builder->nn.c_str());
+    printf("userName: %s\n", builder->userName.c_str());
+    printf("principal: %s\n", builder->principal.c_str());
     printf("port: %d\n", builder->port);
 }
 
