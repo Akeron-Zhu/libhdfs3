@@ -161,7 +161,7 @@ static void readConfigItems(xmlDocPtr doc, Map & kv, const char * path) {
 
     if (NULL == root || strcmp((const char *) root->name, "configuration")) {
         printf("Config cannot parse configure file: \"%s\"\n",
-              path.c_str());
+              path);
         THROW(HdfsBadConfigFoumat, "Config cannot parse configure file: \"%s\"",
               path);
     }
