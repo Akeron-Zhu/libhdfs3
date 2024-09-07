@@ -194,6 +194,7 @@ public:
         } else {
             confPath = "hdfs-client.xml";
         }
+        printf("In DefaultConfig: confPath: %s\n",confPath);
 
         init(confPath, reportError);
     }
@@ -211,6 +212,7 @@ private:
     void init(const std::string & confPath, bool reportError) {
         if (access(confPath.c_str(), R_OK)) {
             if (reportError) {
+                printf("Environment variable LIBHDFS3_CONF is set but %s cannot be read\n",confPath.c_str());
                 LOG(Hdfs::Internal::LOG_ERROR,
                     "Environment variable LIBHDFS3_CONF is set but %s cannot be read",
                     confPath.c_str());
@@ -220,6 +222,7 @@ private:
         }
 
         conf->update(confPath.c_str());
+        printf("CONFIG INIT\n");
     }
 private:
     shared_ptr<Config> conf;
@@ -229,6 +232,7 @@ struct hdfsBuilder {
 public:
     hdfsBuilder() :
         conf(DefaultConfig().getConfig()), port(0) {
+            printf("Get Default config and set port 0\n");
     }
 
     ~hdfsBuilder() {
@@ -525,6 +529,7 @@ hdfsFS hdfsBuilderConnect(struct hdfsBuilder * bld) {
 }
 
 struct hdfsBuilder * hdfsNewBuilder(void) {
+    printf("Enter hdfsBuilder\n");
     try {
         return new struct hdfsBuilder;
     } catch (const std::bad_alloc & e) {

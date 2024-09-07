@@ -143,6 +143,7 @@ static void readConfigItem(xmlNodePtr root, Map & kv, const char * path) {
     }
 
     if (hasname && hasvalue) {
+        printf("config key-val pair: %s: %s\n",key,value);
         kv[key] = value;
         return;
     } else if (hasname) {
@@ -159,6 +160,8 @@ static void readConfigItems(xmlDocPtr doc, Map & kv, const char * path) {
     root = xmlDocGetRootElement(doc);
 
     if (NULL == root || strcmp((const char *) root->name, "configuration")) {
+        printf("Config cannot parse configure file: \"%s\"\n",
+              path);
         THROW(HdfsBadConfigFoumat, "Config cannot parse configure file: \"%s\"",
               path);
     }
@@ -172,6 +175,7 @@ static void readConfigItems(xmlDocPtr doc, Map & kv, const char * path) {
         }
 
         if (strcmp((const char *) curNode->name, "property")) {
+            printf( "Config cannot parse configure file: \"%s\"\n", path)
             THROW(HdfsBadConfigFoumat,
                   "Config cannot parse configure file: \"%s\"", path);
         }
@@ -202,6 +206,7 @@ void Config::update(const char * p) {
     try {
         /* check if parsing succeeded */
         if (doc == NULL) {
+            printf("Config cannot parse configure file: \"%s\"\n", path.c_str());
             THROW(HdfsBadConfigFoumat,
                   "Config cannot parse configure file: \"%s\"", path.c_str());
         } else {
@@ -213,6 +218,7 @@ void Config::update(const char * p) {
         xmlFreeDoc(doc);
         throw;
     }
+    printf("Read ALL CONFIG!!!!");
 }
 
 const char * Config::getString(const char * key) const {
