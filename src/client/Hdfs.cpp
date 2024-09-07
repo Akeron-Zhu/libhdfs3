@@ -194,7 +194,7 @@ public:
         } else {
             confPath = "hdfs-client.xml";
         }
-        printf("In DefaultConfig: confPath: %s\n",confPath);
+        printf("In DefaultConfig: confPath: %s\n",confPath.c_str());
 
         init(confPath, reportError);
     }
@@ -210,7 +210,9 @@ public:
 
 private:
     void init(const std::string & confPath, bool reportError) {
-        if (access(confPath.c_str(), R_OK)) {
+        int right = access(confPath.c_str(), R_OK);
+        printf("accsses R_OK confPath values: %d\n",right);
+        if (right) {
             if (reportError) {
                 printf("Environment variable LIBHDFS3_CONF is set but %s cannot be read\n",confPath.c_str());
                 LOG(Hdfs::Internal::LOG_ERROR,
@@ -220,9 +222,9 @@ private:
                 return;
             }
         }
-
+        printf("BEGIN INIT\n");
         conf->update(confPath.c_str());
-        printf("CONFIG INIT\n");
+        printf("CONFIG INITED\n");
     }
 private:
     shared_ptr<Config> conf;
